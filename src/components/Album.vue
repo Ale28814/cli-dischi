@@ -1,10 +1,10 @@
 <template>
-    <section class="container">
-        <div class=""
-        v-if="albumCollection != null">
+    <section class="container d-flex justify-content-center">
+        <div class="d-flex flex-wrap justify-content-center w-100"
+        v-if="Albums != null">
 
-            <div class="album"
-            v-for="(element, index) in albumCollection" :key="`Album-${index}`">
+            <div class="album d-flex"
+            v-for="(element, index) in Albums" :key="`Album-${index}`">
                 <CardAlbum
                     :Image="element.poster"
                     :MainTitle="element.title"
@@ -21,34 +21,18 @@
 </template>
 
 <script>
-import axios from 'axios';
 import CardAlbum from '@/components/CardAlbum.vue';
 import Loading from '@/components/Loading.vue';
 export default {
     name: 'AlbumSection',
+    props: {
+        Albums: Array,
+    },
     components: {
         CardAlbum,
         Loading,
     },
-    data() {
-        return {
-            albumCollection: null,
-        };
-    },
-    created() {
-        this.getAlbum();
-    },
-    methods: {
-        getAlbum() {
-            /* Call API for data */
-            axios
-                .get('https://flynn.boolean.careers/exercises/api/array/music')
-                .then(result => {
-                    this.albumCollection = result.data.response;
-                })
-                .catch(error => console.log(error));
-        }
-    }
+    
 }
 </script>
 
